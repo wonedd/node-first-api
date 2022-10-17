@@ -17,3 +17,14 @@ model Category {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  username  String   @unique
+  driver_license String
+  admin      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

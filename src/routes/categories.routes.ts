@@ -11,18 +11,18 @@ const upĺoad = multer({
 });
 
 const createCategoryController = new CreateCategoryController();
+
 const importCategoriesController = new ImportCategoriesController();
+
 const listCategoriesController = new ListCategoriesController();
 
-categoriesRoutes.post('/', (request, response) => {
-  return createCategoryController.handle(request, response);
-});
+categoriesRoutes.post('/', createCategoryController.handle);
 
-categoriesRoutes.get('/', (request, response) => {
-  return listCategoriesController.handle(request, response);
-});
+categoriesRoutes.get('/', listCategoriesController.handle);
 
-categoriesRoutes.post('/import', upĺoad.single('file'), (request, response) => {
-  return importCategoriesController.handle(request, response);
-});
+categoriesRoutes.post(
+  '/import',
+  upĺoad.single('file'),
+  importCategoriesController.handle,
+);
 export { categoriesRoutes };
