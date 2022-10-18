@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
-import { ICreateCategoryDTO } from '@modules/category/repositories/CategoriesDTO';
-import { ICategoriesRepository } from '@modules/category/repositories/ICategoriesRepository';
+import { AppError } from '@errors/AppError';
 import { Category } from '@prisma/client';
 import { inject, injectable } from 'tsyringe';
+
+import { ICreateCategoryDTO } from '@modules/category/repositories/CategoriesDTO';
+import { ICategoriesRepository } from '@modules/category/repositories/ICategoriesRepository';
 
 @injectable()
 export class CreateCategoryUseCase {
@@ -20,7 +22,7 @@ export class CreateCategoryUseCase {
     );
 
     if (categoryAlreadyExists) {
-      console.log('Category already exists');
+      throw new AppError('Category already exists');
     }
 
     const category = this.categoriesRepository.create({ name, description });

@@ -1,6 +1,8 @@
-/* eslint-disable no-console */
+import { AppError } from '@errors/AppError';
 import { User } from '@prisma/client';
+import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
+
 import { IUsersRepository } from '../repositories/IUserRepository';
 import { ICreateUserDTO } from '../repositories/UsersDTO';
 
@@ -18,17 +20,19 @@ export class CreateUserUseCase {
     password,
     driver_license,
   }: ICreateUserDTO): Promise<User> {
+    const passwordHash = await hash(password, 8);
+
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
     if (userAlreadyExists) {
-      console.log('User already exists');
+      throw new AppError('User already exists');
     }
 
     const user = await this.usersRepository.create({
       username,
       name,
       email,
-      password,
+      password: passwordHash,
       driver_license,
     });
 

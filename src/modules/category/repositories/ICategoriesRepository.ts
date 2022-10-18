@@ -1,4 +1,5 @@
 import { Category } from '@prisma/client';
+
 import { ICreateCategoryDTO } from './CategoriesDTO';
 
 export interface ICategoriesRepository {

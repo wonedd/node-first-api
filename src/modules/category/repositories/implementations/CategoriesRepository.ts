@@ -1,8 +1,8 @@
 import { Category } from '@prisma/client';
 
 import { prisma } from '@shared/infra/prisma';
-import { ICreateCategoryDTO } from '../CategoriesDTO';
 
+import { ICreateCategoryDTO } from '../CategoriesDTO';
 import { ICategoriesRepository } from '../ICategoriesRepository';
 
 export class CategoriesRepository implements ICategoriesRepository {

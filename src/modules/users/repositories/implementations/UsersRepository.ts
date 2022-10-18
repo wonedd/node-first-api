@@ -1,5 +1,7 @@
 import { User } from '@prisma/client';
+
 import { prisma } from '@shared/infra/prisma';
+
 import { IUsersRepository } from '../IUserRepository';
 import { ICreateUserDTO } from '../UsersDTO';
 
@@ -11,7 +13,6 @@ export class UsersRepository implements IUsersRepository {
     email,
     password,
     driver_license,
-    username,
   }: ICreateUserDTO): Promise<User> {
     const user = await this.ormRepository.create({
       data: {
@@ -19,7 +20,6 @@ export class UsersRepository implements IUsersRepository {
         email,
         password,
         driver_license,
-        username,
       },
     });
 
@@ -30,6 +30,16 @@ export class UsersRepository implements IUsersRepository {
     const user = await this.ormRepository.findFirst({
       where: {
         email,
+      },
+    });
+
+    return user;
+  }
+
+  public async findById(id: string): Promise<User | undefined> {
+    const user = await this.ormRepository.findFirst({
+      where: {
+        id,
       },
     });
 
