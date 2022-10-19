@@ -3,5 +3,11 @@ export interface ICreateUserDTO {
   email: string;
   password: string;
   driver_license: string;
-  username: string;
+  avatar?: string;
+  id?: string;
+}
+
+export interface IUpdateAvatarDTO {
+  id: string;
+  avatarFileName: string;
 }

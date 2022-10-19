@@ -3,8 +3,8 @@ import { User } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 
-import { IUsersRepository } from '../repositories/IUserRepository';
-import { ICreateUserDTO } from '../repositories/UsersDTO';
+import { IUsersRepository } from '../../repositories/IUserRepository';
+import { ICreateUserDTO } from '../../repositories/UsersDTO';
 
 @injectable()
 export class CreateUserUseCase {
@@ -14,7 +14,6 @@ export class CreateUserUseCase {
   ) {}
 
   public async execute({
-    username,
     name,
     email,
     password,
@@ -29,7 +28,6 @@ export class CreateUserUseCase {
     }
 
     const user = await this.usersRepository.create({
-      username,
       name,
       email,
       password: passwordHash,

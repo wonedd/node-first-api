@@ -3,7 +3,7 @@ import { User } from '@prisma/client';
 import { prisma } from '@shared/infra/prisma';
 
 import { IUsersRepository } from '../IUserRepository';
-import { ICreateUserDTO } from '../UsersDTO';
+import { ICreateUserDTO, IUpdateAvatarDTO } from '../UsersDTO';
 
 export class UsersRepository implements IUsersRepository {
   private ormRepository = prisma.user;
@@ -40,6 +40,22 @@ export class UsersRepository implements IUsersRepository {
     const user = await this.ormRepository.findFirst({
       where: {
         id,
+      },
+    });
+
+    return user;
+  }
+
+  public async pathAvatar({
+    id,
+    avatarFileName,
+  }: IUpdateAvatarDTO): Promise<User> {
+    const user = await this.ormRepository.update({
+      where: {
+        id,
+      },
+      data: {
+        avatar: avatarFileName,
       },
     });
 
